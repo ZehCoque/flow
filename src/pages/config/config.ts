@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-/**
- * Generated class for the ConfigPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
+//Validators
+import { NumeroBicosValidator } from  '../../validators/numeroBicos';
+import { ErroAdmValidator } from  '../../validators/erroAdm';
+import { ReferenciaValidator } from  '../../validators/referencia';
+import { ArquivoValidator} from  '../../validators/arquivo';
+
 
 @IonicPage()
 @Component({
@@ -15,11 +17,28 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ConfigPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  configForm: FormGroup;
+  constructor(
+    private navParams: NavParams,
+    private view: ViewController,
+    private formBuilder: FormBuilder
+  ) {
+
+    this.configForm = formBuilder.group({
+      titulo: ['', Validators.compose([Validators.required,Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9´]*')]), ArquivoValidator.checkFilename],
+      numeroBicos: ['', NumeroBicosValidator.isValid],
+      referencia: ['', ReferenciaValidator.isValid],
+      erroAdm: ['', ErroAdmValidator.isValid],
+  });
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConfigPage');
+    
   }
 
+  cancelConfigModal(){
+    this.view.dismiss();
+  }
 }

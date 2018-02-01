@@ -17,7 +17,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { GraphPage } from '../pages/graph/graph';
 import { MorePage } from '../pages/more/more';
 import { HomePage } from '../pages/home/home';
-import { ConfigPage } from '../pages/config/config';
+// import { ConfigPage } from '../pages/config/config';
 import { BluetoothPage } from '../pages/bluetooth/bluetooth';
 import { SavePage } from '../pages/save/save';
 import { LoadPage } from '../pages/load/load';
@@ -28,7 +28,7 @@ import { UserDataProvider } from '../providers/user-data/user-data';
 @NgModule({
   declarations: [
     MyApp,
-    ConfigPage,
+    // ConfigPage,
     BluetoothPage,
     HomePage,
     GraphPage,
@@ -53,7 +53,7 @@ import { UserDataProvider } from '../providers/user-data/user-data';
     HomePage,
     GraphPage,
     MorePage,
-    ConfigPage,
+    // ConfigPage,
     BluetoothPage,
     SavePage,
     LoadPage,

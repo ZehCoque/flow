@@ -1,6 +1,6 @@
 <ion-split-pane>
 
-  <ion-menu [content]="content">
+  <ion-menu [persistent] = "true" [content]="content">
 
     <ion-header>
       <ion-toolbar>
@@ -11,9 +11,9 @@
     <ion-content class="outer-content">
 
       <ion-list>
-        <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p)">
-          <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
-          {{p.title}}
+        <button ion-item menuClose (click)="openConfigModal()">
+          <ion-icon item-start name="settings"></ion-icon>
+          Configurações
         </button>
         <button ion-item menuClose (click)="openTutorial()">
           <ion-icon item-start name="school"></ion-icon>

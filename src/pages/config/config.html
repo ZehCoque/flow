@@ -7,12 +7,55 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>config</ion-title>
+    <ion-title>Configurações</ion-title>
   </ion-navbar>
 
 </ion-header>
 
+<ion-content scrollbar-y-auto>
+    <span ion-fixed class="full-size-content">
 
-<ion-content padding>
+  <div>
+    <ion-list inset>
+        <form [formGroup]="configForm">
+        <ion-item>
+          <ion-label color="dark">Título do Ensaio:</ion-label>
+          <ion-input formControlName="titulo" clearInput type="text" placeholder="Ensaio1" [class.invalid]="!configForm?.controls?.titulo.valid && configForm?.controls?.titulo.dirty"></ion-input>
+        </ion-item>
 
+        <ion-item *ngIf="!configForm?.controls?.titulo.valid && configForm?.controls?.titulo.dirty">
+          <p>Please enter a valid name.</p>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="dark">Número de Bicos:</ion-label>
+          <ion-input formControlName="numeroBicos" clearInput type="text" placeholder="102"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="dark">Vazão de Referência:</ion-label>
+          <ion-input formControlName="referencia" clearInput type="text" placeholder="400"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="dark">Erro admitido (%):</ion-label>
+          <ion-input formControlName="erroAdm" clearInput type="text" placeholder="10"></ion-input>
+        </ion-item>
+      </form>
+      </ion-list>
+  </div>
+  <div text-center>
+    
+    <ion-buttons>
+      <button ion-button (click)="saveConfigModal()">
+        Salvar
+      </button>
+      <button ion-button (click)="cancelConfigModal()">
+        Cancelar
+      </button>
+    </ion-buttons>
+  </div>
+</span>
 </ion-content>
+
+
