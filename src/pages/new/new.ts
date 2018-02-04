@@ -1,6 +1,6 @@
 import { Component,Input } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
-import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { File } from '@ionic-native/file';
 
@@ -15,10 +15,10 @@ import { UserDataProvider, DataList } from '../../providers/user-data/user-data'
 
 @IonicPage()
 @Component({
-  selector: 'page-config',
-  templateUrl: 'config.html',
+  selector: 'page-new',
+  templateUrl: 'new.html',
 })
-export class ConfigPage {
+export class NewPage {
 
   titulo: string;
   numeroBicosDefault: number = 102;
@@ -29,11 +29,11 @@ export class ConfigPage {
   erroAdm: any;
   unidade: string = "mm";
   coleta: string = "bt";
-  configData: DataList;
-  configFormTitulo: FormGroup;
-  configFormNumeroBicos: FormGroup;
-  configFormReferencia: FormGroup;
-  configFormErroAdm: FormGroup;
+  newData: DataList;
+  newFormTitulo: FormGroup;
+  newFormNumeroBicos: FormGroup;
+  newFormReferencia: FormGroup;
+  newFormErroAdm: FormGroup;
 
   constructor(
     private navParams: NavParams,
@@ -44,37 +44,22 @@ export class ConfigPage {
     public userData: UserDataProvider
   ) {
 
-    this.configFormTitulo = this.formBuilder.group({
+    this.newFormTitulo = this.formBuilder.group({
       titulo: [this.titulo, Validators.compose([Validators.required,Validators.minLength(1),Validators.maxLength(20), 
         Validators.pattern('[a-zA-Z0-9éãáÁÉçÇÍíóÓúÚ]*')]), ArquivoValidator.checkFilenameAvailable]
   });
 
-    this.configFormNumeroBicos = this.formBuilder.group({
-  numeroBicos: [this.numeroBicos, NumeroBicosValidator.isValid]
+    this.newFormNumeroBicos = this.formBuilder.group({
+    numeroBicos: [this.numeroBicos, NumeroBicosValidator.isValid]
     });
 
-    this.configFormReferencia = this.formBuilder.group({
+    this.newFormReferencia = this.formBuilder.group({
       referencia: [this.referencia, ReferenciaValidator.isValid]
       });
 
-      this.configFormErroAdm = this.formBuilder.group({
+      this.newFormErroAdm = this.formBuilder.group({
       erroAdm: [this.erroAdm, ErroAdmValidator.isValid]
       });
-
-      this.userData.getData().then((value) => {
-        this.configData = value;
-        if (this.configData != null)
-        {
-        this.titulo = this.configData.titulo;
-        this.numeroBicos = this.configData.numeroBicos;
-        this.referencia = this.configData.referencia;
-        this.erroAdm = this.configData.erroAdm;
-        this.unidade = this.configData.unidade;
-        this.coleta = this.configData.coleta;
-        }
-
-      });
-      
   }
 
   onChangeUnidade(SelectedValue){ 
@@ -85,13 +70,13 @@ export class ConfigPage {
     this.coleta = SelectedValue;
    }
 
-saveConfigModal()
+saveNewModal()
 {
-  this.titulo = JSON.stringify(this.configFormTitulo.value);
+  this.titulo = JSON.stringify(this.newFormTitulo.value);
   this.titulo = this.titulo.substring(11);
   this.titulo = this.titulo.replace('"}',"");
 
-  this.numeroBicos = JSON.stringify(this.configFormNumeroBicos.value);
+  this.numeroBicos = JSON.stringify(this.newFormNumeroBicos.value);
   this.numeroBicos = this.numeroBicos.replace('"}',"");
   this.numeroBicos = this.numeroBicos.replace('{"numeroBicos":"',"");
   this.numeroBicos = this.numeroBicos.replace('}',"");
@@ -102,7 +87,7 @@ saveConfigModal()
     this.numeroBicos = this.numeroBicosDefault;
   }
 
-  this.referencia = JSON.stringify(this.configFormReferencia.value);
+  this.referencia = JSON.stringify(this.newFormReferencia.value);
   this.referencia= this.referencia.replace('"}',"");
   this.referencia = this.referencia.replace('{"referencia":"',"");
   this.referencia= this.referencia.replace('}',"");
@@ -113,7 +98,7 @@ saveConfigModal()
     this.referencia = this.referenciaDefault;
   }
 
-  this.erroAdm = JSON.stringify(this.configFormErroAdm.value);
+  this.erroAdm = JSON.stringify(this.newFormErroAdm.value);
   this.erroAdm= this.erroAdm.replace('"}',"");
   this.erroAdm = this.erroAdm.replace('{"erroAdm":"',"");
   this.erroAdm= this.erroAdm.replace('}',"");
@@ -124,8 +109,7 @@ saveConfigModal()
     this.erroAdm = this.erroAdmDefault;
   }
 
-
-  let configData={
+  let newData={
     titulo: this.titulo,
     numeroBicos: this.numeroBicos,
     referencia: this.referencia,
@@ -133,13 +117,12 @@ saveConfigModal()
     unidade: this.unidade,
     coleta: this.coleta
   }
-  // console.log(this.configData)
-  this.view.dismiss(configData);
+
+  this.view.dismiss(newData);
   
 }
-  cancelConfigModal(){
+  cancelNewModal(){
     
-    this.view.dismiss(this.configData);
+    this.view.dismiss();
   }
 }
-

@@ -11,9 +11,13 @@
     <ion-content class="outer-content">
 
       <ion-list>
+        <button ion-item menuClose (click)="openNewModal()">
+          <ion-icon item-start name="create"></ion-icon>
+          Novo
+        </button>
         <button ion-item menuClose (click)="openConfigModal()">
           <ion-icon item-start name="settings"></ion-icon>
-          Configurações
+          Editar
         </button>
         <button ion-item menuClose (click)="openTutorial()">
           <ion-icon item-start name="school"></ion-icon>

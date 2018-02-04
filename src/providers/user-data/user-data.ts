@@ -3,15 +3,12 @@ import { Injectable } from '@angular/core';
 import { Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
-/*
-  Generated class for the UserDataProvider provider.
+const Data = 'Data';
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class UserDataProvider {
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
+  
 
   constructor(public storage: Storage) {
     console.log('Hello UserDataProvider Provider');
@@ -22,4 +19,25 @@ export class UserDataProvider {
       return value;
     });
   };
+
+  getData() {
+    console.log('getting');
+    return this.storage.get(Data);
+  }
+
+  setData(value) {
+    console.log('setting');
+    this.storage.set(Data,value).then((value) => {
+      return value;
+    });
+  }
+}
+
+export class DataList{
+  titulo: string;
+  numeroBicos: number;
+  referencia: number;
+  erroAdm: number;
+  unidade: string;
+  coleta: string;
 }

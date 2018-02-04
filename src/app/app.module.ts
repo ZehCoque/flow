@@ -10,7 +10,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { File } from '@ionic-native/file';
 import { MyApp } from './app.component';
 
 import { TabsPage } from '../pages/tabs/tabs';
@@ -22,7 +22,7 @@ import { BluetoothPage } from '../pages/bluetooth/bluetooth';
 import { SavePage } from '../pages/save/save';
 import { LoadPage } from '../pages/load/load';
 import { TutorialPage } from '../pages/tutorial/tutorial';
-
+// import { FieldErrorDisplayComponent } from '../pages/field-error-display-component/field-error-display-component';
 import { UserDataProvider } from '../providers/user-data/user-data';
 
 @NgModule({
@@ -37,6 +37,7 @@ import { UserDataProvider } from '../providers/user-data/user-data';
     LoadPage,
     TabsPage,
     TutorialPage,
+    // FieldErrorDisplayComponent,
     TimesPipe
   ],
   imports: [
@@ -53,6 +54,7 @@ import { UserDataProvider } from '../providers/user-data/user-data';
     HomePage,
     GraphPage,
     MorePage,
+    // FieldErrorDisplayComponent,
     // ConfigPage,
     BluetoothPage,
     SavePage,
@@ -64,7 +66,8 @@ import { UserDataProvider } from '../providers/user-data/user-data';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UserDataProvider
+    UserDataProvider,
+    File
   ]
 })
 export class AppModule {}

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
+//Providers
+import { UserDataProvider, DataList } from '../../providers/user-data/user-data';
 
 @Component({
   selector: 'page-home',
@@ -8,14 +11,23 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
   Inputs:number[];
-  rowCount = 7;
-  constructor(public navCtrl: NavController) {
-   
+  rowCount:number;
+  homeData: DataList;
+
+  constructor(
+    public navCtrl: NavController,
+    public userData: UserDataProvider
+  ) {
+
   }
 
-  ionViewWillEnter(){
-    this.Inputs =[];
-  }
+  // ionViewWillEnter(){
+  //   this.Inputs =[];
+  //   this.userData.getData().then((value) => {
+  //     this.homeData = value;
+  //     this.rowCount = this.homeData.numeroBicos;
+  //   });
+  // }
 
   addInput(Input){
     this.Inputs.push(Input);

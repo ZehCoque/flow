@@ -4,19 +4,18 @@ export class ReferenciaValidator {
  
     static isValid(control: FormControl): any {
  
+        if(control.value==undefined){
+            return null;
+        }
+        
         if(isNaN(control.value)){
             return {
                 "not a number": true
             };
         }
+
  
-        if(control.value % 1 !== 0){
-            return {
-                "not a whole number": true
-            };
-        }
- 
-        if(control.value < 0){
+        if(control.value <= 0){
             return {
                 "negative": true
             };

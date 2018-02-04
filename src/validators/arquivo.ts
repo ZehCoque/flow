@@ -2,11 +2,11 @@ import { FormControl } from '@angular/forms';
  
 export class ArquivoValidator {
  
-  static checkFilename(control: FormControl): any {
+  static checkFilenameAvailable(control: FormControl): any {
  
     return new Promise(resolve => {
  
-        if(control.value.toLowerCase() === "Ensaio1"){
+        if(control.value.toLowerCase() === "ensaio1"){
  
           resolve({
             "file name taken": true
@@ -15,7 +15,7 @@ export class ArquivoValidator {
         } else {
           resolve(null);
         }
- 
+        
     });
   }
  
