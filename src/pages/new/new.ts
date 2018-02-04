@@ -45,20 +45,20 @@ export class NewPage {
   ) {
 
     this.newFormTitulo = this.formBuilder.group({
-      titulo: [this.titulo, Validators.compose([Validators.required,Validators.minLength(1),Validators.maxLength(20), 
+      titulo: ['', Validators.compose([Validators.required,Validators.minLength(1),Validators.maxLength(20), 
         Validators.pattern('[a-zA-Z0-9éãáÁÉçÇÍíóÓúÚ]*')]), ArquivoValidator.checkFilenameAvailable]
   });
 
     this.newFormNumeroBicos = this.formBuilder.group({
-    numeroBicos: [this.numeroBicos, NumeroBicosValidator.isValid]
+    numeroBicos: ['', NumeroBicosValidator.isValid]
     });
 
     this.newFormReferencia = this.formBuilder.group({
-      referencia: [this.referencia, ReferenciaValidator.isValid]
+      referencia: ['', ReferenciaValidator.isValid]
       });
 
       this.newFormErroAdm = this.formBuilder.group({
-      erroAdm: [this.erroAdm, ErroAdmValidator.isValid]
+      erroAdm: ['', ErroAdmValidator.isValid]
       });
   }
 
@@ -104,7 +104,7 @@ saveNewModal()
   this.erroAdm= this.erroAdm.replace('}',"");
   this.erroAdm = this.erroAdm.replace('{"erroAdm":',"");
   this.erroAdm = Number(this.erroAdm);
-  if (this.erroAdm == 0)
+  if (this.erroAdm == 0 )
   {
     this.erroAdm = this.erroAdmDefault;
   }
@@ -117,7 +117,7 @@ saveNewModal()
     unidade: this.unidade,
     coleta: this.coleta
   }
-
+  console.log(newData);
   this.view.dismiss(newData);
   
 }

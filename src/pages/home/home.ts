@@ -21,13 +21,13 @@ export class HomePage {
 
   }
 
-  // ionViewWillEnter(){
-  //   this.Inputs =[];
-  //   this.userData.getData().then((value) => {
-  //     this.homeData = value;
-  //     this.rowCount = this.homeData.numeroBicos;
-  //   });
-  // }
+  ionViewWillEnter(){
+    this.Inputs =[];
+    this.userData.getData().then((value) => {
+      this.homeData = value;
+      this.rowCount = this.homeData.numeroBicos;
+    });
+  }
 
   addInput(Input){
     this.Inputs.push(Input);

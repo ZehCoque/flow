@@ -17,7 +17,7 @@
     <form [formGroup]="newFormTitulo">
         <ion-item>
           <ion-label color="dark">Título do Ensaio:</ion-label>
-          <ion-input [(ngModel)]="titulo" name="titulo" formControlName="titulo" 
+          <ion-input name="titulo" formControlName="titulo" 
            type="text" placeholder="Ensaio1"></ion-input>
         </ion-item>
 
@@ -37,7 +37,6 @@
         <ion-item>
           <ion-label color="dark">Número de Bicos:</ion-label>
           <ion-input 
-          [(ngModel)]="numeroBicos" 
           name="numeroBicos" formControlName="numeroBicos" 
           type="text" placeholder="102"></ion-input>
         </ion-item>
@@ -52,7 +51,6 @@
         <ion-item>
           <ion-label color="dark">Vazão de Referência:</ion-label>
           <ion-input name = "referencia" formControlName="referencia" 
-          [(ngModel)]="referencia"
           type="text" placeholder="400"></ion-input>
         </ion-item>
         <div 
@@ -65,7 +63,6 @@
         <ion-item>
           <ion-label color="dark">Erro admitido (%):</ion-label>
           <ion-input name="erroAdm" formControlName="erroAdm" 
-          [(ngModel)]="erroAdm"
           clearInput type="text" placeholder="10"></ion-input>
         </ion-item>  
         <div 
