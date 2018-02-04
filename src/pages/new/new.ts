@@ -93,7 +93,8 @@ saveNewModal()
   this.referencia= this.referencia.replace('}',"");
   this.referencia = this.referencia.replace('{"referencia":',"");
   this.referencia = Number(this.referencia);
-  if (this.referencia == 0)
+  console.log(this.referencia);
+  if (this.referencia == 0 || this.referencia == null)
   {
     this.referencia = this.referenciaDefault;
   }

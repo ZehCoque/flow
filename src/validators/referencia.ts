@@ -15,7 +15,7 @@ export class ReferenciaValidator {
         }
 
  
-        if(control.value <= 0){
+        if(control.value < 0){
             return {
                 "negative": true
             };

@@ -15,6 +15,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 
 //Providers
 import { UserDataProvider, DataList } from '../providers/user-data/user-data';
+import { HomePage } from '../pages/home/home';
 
 @Component({
   templateUrl: 'app.html'
@@ -65,13 +66,13 @@ export class MyApp {
     ConfigModal.onDidDismiss((configData) => {
     this.userData.setData(configData);
     this.Data = configData;
-  
+    this.nav.setRoot(TabsPage);
     });
-    console.log(this.Data);
     ConfigModal.present();
   }
 
   openNewModal(){
+    
     let alert = this.alertCtrl.create({
       title: 'Deseja salvar antes de continuar?',
       buttons: [
@@ -84,6 +85,8 @@ export class MyApp {
                 
             this.userData.setData(newData);
             this.Data = newData;}
+            this.nav.setRoot(TabsPage);
+            
             });
             
             newModal.present();
@@ -93,11 +96,13 @@ export class MyApp {
           text: 'Salvar',
           handler: () => {
             const newModal = this.modal.create('NewPage');
-            newModal.onDidDismiss((newData) => {
+            newModal.onDidDismiss((newData) => { 
+                  
               if(newData != undefined){
                 
             this.userData.setData(newData);
             this.Data = newData;}
+            this.nav.setRoot(TabsPage);
             });
             newModal.present();
           }
@@ -106,6 +111,8 @@ export class MyApp {
     });
     alert.present();
   }
+
+
 
   platformReady() {
     // Call any initial plugins when ready
