@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
@@ -36,7 +36,6 @@ export class ConfigPage {
   configFormErroAdm: FormGroup;
 
   constructor(
-    private navParams: NavParams,
     private view: ViewController,
     private formBuilder: FormBuilder,
     public storage: Storage,

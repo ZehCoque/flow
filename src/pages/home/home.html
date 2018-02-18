@@ -8,89 +8,42 @@
         </ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Home</ion-title>
+    <ion-title>{{titulo}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-<form (submit) ="addInput(Input.value)">
-  <div>
-      <tbody>
-          <tr *ngFor="let y of rowCount|times">
-            <th scope="row">Index {{ y }}:</th>
-                <th><input type="any"></th>
-          </tr>
-        </tbody>
-  </div>
-</form>
 
-<table>
-    <thead>
-      <tr>
-        <th *ngFor="let x of colCount|times">{{ x }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let y of rowCount|times">
-        <th scope="row">{{ y }}</th>
-        <td *ngFor="let x of colCount|times">
-            <input type="checkbox" checked>
-        </td>
-      </tr>
-    </tbody>
-</table>
-
-<table>
-    <tr>
-      <th>Month</th>
-      <th>Savings</th>
-    </tr>
-    <tr>
-      <td>January</td>
-      <td>$100</td>
-    </tr>
-  </table>
-
-  <head>
-      <style>
-      thead {color:green;}
-      tbody {color:blue;}
-      tfoot {color:red;}
-      
-      table, th, td {
-          border: 1px solid black;
-      }
-      </style>
-      </head>
-      
-      
-      
-      <table>
-        <thead>
-          <tr>
-            <th>Month</th>
-            <th>Savings</th>
-          </tr>
-        </thead>
-        <tfoot>
-          <tr>
-            <td>Sum</td>
-            <td>$180</td>
-          </tr>
-        </tfoot>
-        <tbody>
-          <tr>
-            <td>January</td>
-            <td>$100</td>
-          </tr>
-          <tr>
-            <td>February</td>
-            <td>$80</td>
-          </tr>
-        </tbody>
-      </table>
-
-  
-
+  <ion-grid>
+          <ion-row no-padding text-center align-items-center>
+            <ion-col class="main-col" align-self-center col-2><strong>Nº</strong></ion-col>
+            <ion-col class="main-col" align-self-center col-4><strong>Vazão ({{unidade}})</strong></ion-col>
+            <ion-col class="main-col" align-self-center col-4><strong>Condição</strong></ion-col>
+            <ion-col class="empty-col" col-2></ion-col>
+          </ion-row>
+          <form [formGroup]="homeForm">
+            <ion-row formArrayName="bicos" *ngFor="let item of homeForm.controls.bicos.controls; let i = index" >
+              <ion-col align-self-center col-2>{{i+1}}</ion-col>
+              <ion-col text-center align-self-center col-4>
+                <ion-input formControlName="{{i}}"></ion-input>
+              </ion-col>
+              <ion-col align-self-center col-4>{{status}}</ion-col>
+              <ion-col align-self-center col-2><button
+                id= 'button{{y}}' ion-button small icon-only>
+                <ion-icon name="brush"></ion-icon></button></ion-col>
+            </ion-row>
+          </form>
+          <!-- <form>
+          <ion-row *ngFor="let y of rowCount|times" text-center align-items-center>
+              <ion-col align-self-center col-2>{{y}}</ion-col>
+              <ion-col text-center align-self-center col-4><ion-input id='input{{y}}' 
+                ></ion-input></ion-col>
+              <ion-col align-self-center col-4>{{status}}</ion-col>
+              <ion-col align-self-center col-2><button
+                id= 'button{{y}}' ion-button small icon-only>
+                <ion-icon name="brush"></ion-icon></button></ion-col>
+          </ion-row>
+        </form> -->
+  </ion-grid>
 </ion-content>
