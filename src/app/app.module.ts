@@ -22,12 +22,10 @@ import { SavePage } from '../pages/save/save';
 import { LoadPage } from '../pages/load/load';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { UserDataProvider } from '../providers/user-data/user-data';
-import { InputComponent } from '../pages/home/input.component'
 
 @NgModule({
   declarations: [
     MyApp,
-    InputComponent,
     BluetoothPage,
     HomePage,
     GraphPage,

@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, Directive, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChildren, Directive, QueryList, ElementRef, Input } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { BrowserModule } from "@angular/platform-browser";
 import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 // import { Inputs } from '.././home/inputs';
 import { UserDataProvider, DataList } from '../../providers/user-data/user-data';
+import {Focuser} from "../../directives/focuser/focuser";
 
 // @Directive({
 //   selector: '[focusMe]'
@@ -23,6 +24,7 @@ import { UserDataProvider, DataList } from '../../providers/user-data/user-data'
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
+  // directives: ['Focuser']
 })
 export class HomePage {
   rowCount:number;
@@ -50,6 +52,8 @@ export class HomePage {
 
   }
 
+  @ViewChildren('input') childChildren: QueryList<ElementRef>;
+
   ionViewWillEnter(){
     this.userData.getData().then((value) => {
       this.homeData = value;
@@ -69,16 +73,17 @@ export class HomePage {
       for(let i=1;i<this.rowCount;i++){
         this.addInputs();
       }
+
     });
 
   
   }
 
-  initInput() {
-    return this.formBuilder.group({
-        input: ['', Validators.required],
-    });
-}
+//   initInput() {
+//     return this.formBuilder.group({
+//         input: ['', Validators.required],
+//     });
+// }
 
   addInputs() {
     // this.homeForm.controls
@@ -88,6 +93,15 @@ export class HomePage {
     .push(new FormControl(null));
     }
 
+    activateInput(index){
+     
+      // focus.focus()
+      
+      // let element = document.getElementById('input'+index);
+      // console.log(element)
+      // element.focus();
+      // document.getElementById('input'+index).setFocus();
+    }
 
     // focusInput() {
     

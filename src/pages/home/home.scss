@@ -17,14 +17,41 @@ page-home {
     //    .empty-col{
     //        background: white;
     //    }
-   input{
+   ion-input{
        text-align: center;
        background: white;
+       border: 1px solid #ddd;
+       border-radius: 4px;
     //    font-size: 15px
    }
 
+   .hidden-button{
+    height: 100%;
+    width: 100%;
+    // box-shadow: none;
+    // -webkit-box-shadow: none;
+    padding: 0px;
+    
+    // background: none;
+}
+   .text-input::-moz-placeholder {
+    color: #488aff;
+    text-align: center;
+  }
+  
+  .text-input:-ms-input-placeholder {
+    color: #488aff;
+    text-align: center;
+  }
+  
+  .text-input::-webkit-input-placeholder {
+    text-indent: 0;
+    color: #488aff;
+    text-align: center;
+  }
+
    ion-grid{
-       padding:10px;
+       padding:0px;
    }
    ion-row{
     padding: 0px;
