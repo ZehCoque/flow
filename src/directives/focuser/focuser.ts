@@ -1,17 +1,29 @@
-
-import {Directive, Renderer, ElementRef} from '@angular/core';
+import {Directive, Renderer, ElementRef, OnInit, AfterViewInit, Input} from '@angular/core';
 
 @Directive({
-    selector: '[focuser]' // Attribute selector
+  selector: '[focusOnInit]'
 })
-export class Focuser {
-    constructor(private renderer:Renderer, private elementRef:ElementRef) {
+export class FocusDirective implements OnInit, AfterViewInit {
+  @Input('focusOnInit') priority: number = 0;
+
+  static instances: FocusDirective[] = [];
+
+  constructor(public renderer: Renderer, public elementRef: ElementRef) {
+  }
+
+  ngOnInit(): void {
+    FocusDirective.instances.push(this)
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      FocusDirective.instances.splice(FocusDirective.instances.indexOf(this), 1);
+    });
+
+    if (FocusDirective.instances.every((i) => this.priority >= i.priority)) {
+      this.renderer.invokeElementMethod(
+        this.elementRef.nativeElement, 'focus', []);
     }
-    ngAfterViewInit() {
-        const element = this.elementRef.nativeElement.querySelector('input');
-        // we need to delay our call in order to work with ionic ...
-        setTimeout(() => {
-            this.renderer.invokeElementMethod(element, 'focus', []);
-        }, 0);
-    }
+  }
 }
+

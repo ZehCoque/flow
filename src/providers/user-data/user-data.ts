@@ -4,6 +4,7 @@ import { Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 const Data = 'Data';
+const Inputs = 'Inputs';
 
 @Injectable()
 export class UserDataProvider {
@@ -21,16 +22,27 @@ export class UserDataProvider {
   };
 
   getData() {
-    console.log('getting');
     return this.storage.get(Data);
   }
 
   setData(value) {
-    console.log('setting');
     this.storage.set(Data,value).then((value) => {
       return value;
     });
   }
+
+  setInputs(value){
+    console.log('saving inputs')
+    this.storage.set(Inputs,value).then((value) => {
+      return value;
+    });
+  }
+
+  getInputs() {
+    console.log('getting inputs')
+    return this.storage.get(Inputs);
+  }
+
 }
 
 export class DataList{
@@ -40,4 +52,8 @@ export class DataList{
   erroAdm: number;
   unidade: string;
   coleta: string;
+}
+
+export class HomeInputData {
+homeInputs: number[];
 }

@@ -1,32 +1,18 @@
-import { Component, OnInit, ViewChildren, Directive, QueryList, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, Renderer, ViewChildren, Directive, QueryList, ElementRef, Input } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { BrowserModule } from "@angular/platform-browser";
 import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-// import { Inputs } from '.././home/inputs';
-import { UserDataProvider, DataList } from '../../providers/user-data/user-data';
-import {Focuser} from "../../directives/focuser/focuser";
-
-// @Directive({
-//   selector: '[focusMe]'
-// })
-// export class FocusMe {
-//     constructor(private elementRef: ElementRef) {}
-//     ngAfterViewInit() {
-//       // set focus when element first appears
-//       this.setFocus();
-//     }
-//     setFocus() {
-//       this.elementRef.nativeElement.focus();
-//     }
-// }
+import { UserDataProvider, DataList, HomeInputData } from '../../providers/user-data/user-data';
+import {FocusDirective} from "../../directives/focuser/focuser";
+import { HomeInputValidator } from  '../../validators/homeInput';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  // directives: ['Focuser']
 })
 export class HomePage {
+  savedInputs: HomeInputData;
   rowCount:number;
   homeData: DataList;
   formData: FormGroup;
@@ -36,23 +22,21 @@ export class HomePage {
   status: number;
   index: any;
   public homeForm: FormGroup;
-  // @ViewChild(FocusMe) child;
-  
+
   constructor(
     public navCtrl: NavController,
     public userData: UserDataProvider,
     private formBuilder: FormBuilder,
+    public renderer: Renderer,
+    public elementRef: ElementRef
   ) {
 
     this.homeForm = new FormGroup({
-      bicos: new FormArray([
-        new FormControl(null)
-      ])
+      bicos: new FormArray([],[HomeInputValidator.isValid])
   });
-
   }
 
-  @ViewChildren('input') childChildren: QueryList<ElementRef>;
+  // @ViewChildren('homeForm') bicos: QueryList<ElementRef>;
 
   ionViewWillEnter(){
     this.userData.getData().then((value) => {
@@ -68,33 +52,43 @@ export class HomePage {
       if (this.homeData.unidade == "oz"){
         this.unidade = 'oz/min';
       }
-      this.status = this.homeData.referencia
 
-      for(let i=1;i<this.rowCount;i++){
-        this.addInputs();
+      this.status = this.homeData.referencia;
+
+      }); 
+
+      this.userData.getInputs().then((value) => {
+        this.savedInputs = value;
+
+      for(let i=0;i<this.rowCount;i++){
+        if(this.savedInputs == undefined){
+        (<FormArray>this.homeForm.controls['bicos'])
+        .push(new FormControl(null));
+        }
+        else{
+          (<FormArray>this.homeForm.controls['bicos'])
+          .push(new FormControl(this.savedInputs[i]));
+        }
       }
-
     });
-
-  
+ 
+    this.homeForm.controls.bicos.valueChanges.subscribe(data =>{
+      this.userData.setInputs(data);
+      console.log(this.homeForm.controls['bicos'].valid);
+    });
+    
   }
 
-//   initInput() {
-//     return this.formBuilder.group({
-//         input: ['', Validators.required],
-//     });
-// }
-
-  addInputs() {
-    // this.homeForm.controls
-    // .bicos.push(new FormControl(null));
-
-    (<FormArray>this.homeForm.controls['bicos'])
-    .push(new FormControl(null));
-    }
-
     activateInput(index){
-     
+
+      // this.renderer.invokeElementMethod(this.homeForm.controls.bicos.nativeElement,    
+      //   'focus');
+
+      // this.bicos.first().nativeElement.focus();
+      // this.renderer.invokeElementMethod(
+      //   this.elementRef.nativeElement, 'focus', []);
+      //   console.log( this.renderer.invokeElementMethod(
+      //     this.elementRef.nativeElement, 'focus', []))
       // focus.focus()
       
       // let element = document.getElementById('input'+index);
@@ -102,24 +96,5 @@ export class HomePage {
       // element.focus();
       // document.getElementById('input'+index).setFocus();
     }
-
-    // focusInput() {
-    
-  //   this.child = 'input1'
-  //   console.clear();
-  //   console.log(this.child);
-  //   this.child.setFocus();
-  // }
-//   getValue(index){
-//     this.index = document.write(eval(index));
-//     console.log(this.index)
-//     // return this.value;
-// }
-  
-//   setFocus(index){
-//     this.inputNumber = 'input'+index;
-//     console.log(document.getElementById(index))
-//     // this.NBicoInput.setFocus();
-//   }
 }
 

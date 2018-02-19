@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { FocuserDirective } from './focuser/focuser';
+import { FocusDirective } from './focuser/focuser';
 @NgModule({
-	declarations: [FocuserDirective],
+	declarations: [FocusDirective],
 	imports: [],
-	exports: [FocuserDirective]
+	exports: [FocusDirective]
 })
 export class DirectivesModule {}

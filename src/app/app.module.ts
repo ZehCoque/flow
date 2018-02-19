@@ -22,6 +22,7 @@ import { SavePage } from '../pages/save/save';
 import { LoadPage } from '../pages/load/load';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { UserDataProvider } from '../providers/user-data/user-data';
+import { FocusDirective } from '../directives/focuser/focuser';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { UserDataProvider } from '../providers/user-data/user-data';
     LoadPage,
     TabsPage,
     TutorialPage,
-    // FieldErrorDisplayComponent,
+    FocusDirective,
     TimesPipe
   ],
   imports: [
