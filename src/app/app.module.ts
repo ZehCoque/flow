@@ -17,25 +17,17 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { GraphPage } from '../pages/graph/graph';
 import { MorePage } from '../pages/more/more';
 import { HomePage } from '../pages/home/home';
-import { BluetoothPage } from '../pages/bluetooth/bluetooth';
-import { SavePage } from '../pages/save/save';
-import { LoadPage } from '../pages/load/load';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { UserDataProvider } from '../providers/user-data/user-data';
-import { FocusDirective } from '../directives/focuser/focuser';
 
 @NgModule({
   declarations: [
     MyApp,
-    BluetoothPage,
     HomePage,
     GraphPage,
     MorePage,
-    SavePage,
-    LoadPage,
     TabsPage,
     TutorialPage,
-    FocusDirective,
     TimesPipe
   ],
   imports: [
@@ -52,11 +44,6 @@ import { FocusDirective } from '../directives/focuser/focuser';
     HomePage,
     GraphPage,
     MorePage,
-    // FieldErrorDisplayComponent,
-    // ConfigPage,
-    BluetoothPage,
-    SavePage,
-    LoadPage,
     TabsPage,
     TutorialPage
   ],

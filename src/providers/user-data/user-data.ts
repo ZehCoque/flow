@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 const Data = 'Data';
@@ -32,14 +31,12 @@ export class UserDataProvider {
   }
 
   setInputs(value){
-    console.log('saving inputs')
     this.storage.set(Inputs,value).then((value) => {
       return value;
     });
   }
 
   getInputs() {
-    console.log('getting inputs')
     return this.storage.get(Inputs);
   }
 

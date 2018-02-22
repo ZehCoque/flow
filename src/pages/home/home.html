@@ -24,16 +24,13 @@
           <form [formGroup]="homeForm"> 
             <ion-row formArrayName="bicos" *ngFor="let item of homeForm.controls.bicos.controls; let i = index" >
               <button id={{i}} ion-button clear style="color: black" class='hidden-button' 
-              (click) = "activateInput(i+1)">
+              (click) = "activateInput(i)">
               <ion-col align-self-center col-2>{{i+1}}</ion-col>
-              <ion-col text-center align-self-center col-5>
-              <ion-input formControlName="{{i}}" type="text"></ion-input>
-              <div
-              *ngIf="!homeForm.controls?.bicos.valid[i]  && 
-              homeForm.controls?.bicos.touched[i]">
-                  <p>Insira apenas valores inteiros entre 1 e 200.</p>
-            </div>
+              <ion-col col-1></ion-col>
+              <ion-col text-center align-self-center col-3>
+              <ion-input #inputs formControlName="{{i}}" type="number"></ion-input>
               </ion-col>
+              <ion-col col-1></ion-col>
               <ion-col align-self-center col-5>{{status}}</ion-col>
             </button>
             </ion-row>

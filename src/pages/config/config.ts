@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, ViewController } from 'ionic-angular';
-import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IonicPage, ViewController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { File } from '@ionic-native/file';
 

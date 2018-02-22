@@ -1,6 +1,6 @@
 import { Component,Input } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
-import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { File } from '@ionic-native/file';
 
@@ -36,7 +36,6 @@ export class NewPage {
   newFormErroAdm: FormGroup;
 
   constructor(
-    private navParams: NavParams,
     private view: ViewController,
     private formBuilder: FormBuilder,
     public storage: Storage,

@@ -1,10 +1,9 @@
-import { Component, OnInit, Renderer, ViewChildren, Directive, QueryList, ElementRef, Input } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { BrowserModule } from "@angular/platform-browser";
+import { Component, ViewChildren, QueryList} from '@angular/core';
+import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { NavController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
 import { UserDataProvider, DataList, HomeInputData } from '../../providers/user-data/user-data';
-import {FocusDirective} from "../../directives/focuser/focuser";
+
+//Validators
 import { HomeInputValidator } from  '../../validators/homeInput';
 
 @Component({
@@ -26,17 +25,14 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public userData: UserDataProvider,
-    private formBuilder: FormBuilder,
-    public renderer: Renderer,
-    public elementRef: ElementRef
   ) {
 
     this.homeForm = new FormGroup({
-      bicos: new FormArray([],[HomeInputValidator.isValid])
+      bicos: new FormArray([])
   });
   }
 
-  // @ViewChildren('homeForm') bicos: QueryList<ElementRef>;
+  @ViewChildren('inputs') inputs: QueryList<any>;
 
   ionViewWillEnter(){
     this.userData.getData().then((value) => {
@@ -59,11 +55,11 @@ export class HomePage {
 
       this.userData.getInputs().then((value) => {
         this.savedInputs = value;
-
-      for(let i=0;i<this.rowCount;i++){
+        console.log(this.savedInputs);
+        for(let i=0;i<this.rowCount;i++){
         if(this.savedInputs == undefined){
         (<FormArray>this.homeForm.controls['bicos'])
-        .push(new FormControl(null));
+        .push(new FormControl([null,HomeInputValidator.isValid]));
         }
         else{
           (<FormArray>this.homeForm.controls['bicos'])
@@ -72,29 +68,14 @@ export class HomePage {
       }
     });
  
-    this.homeForm.controls.bicos.valueChanges.subscribe(data =>{
+      this.homeForm.controls.bicos.valueChanges.subscribe(data =>{
       this.userData.setInputs(data);
-      console.log(this.homeForm.controls['bicos'].valid);
     });
     
   }
 
     activateInput(index){
-
-      // this.renderer.invokeElementMethod(this.homeForm.controls.bicos.nativeElement,    
-      //   'focus');
-
-      // this.bicos.first().nativeElement.focus();
-      // this.renderer.invokeElementMethod(
-      //   this.elementRef.nativeElement, 'focus', []);
-      //   console.log( this.renderer.invokeElementMethod(
-      //     this.elementRef.nativeElement, 'focus', []))
-      // focus.focus()
-      
-      // let element = document.getElementById('input'+index);
-      // console.log(element)
-      // element.focus();
-      // document.getElementById('input'+index).setFocus();
+      this.inputs.toArray()[index].setFocus();
     }
 }
 
