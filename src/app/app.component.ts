@@ -4,7 +4,8 @@ import { Events, MenuController, Nav, Platform,
   ModalController, AlertController, ToastController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
-
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { BLE } from '@ionic-native/ble'
 // Pages
 import { TabsPage } from '../pages/tabs/tabs';
 import { TutorialPage } from '../pages/tutorial/tutorial';
@@ -14,7 +15,8 @@ import { File } from '@ionic-native/file';
 import { UserDataProvider, DataList } from '../providers/user-data/user-data';
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [BLE]
 })
 
 export class MyApp {
@@ -44,7 +46,11 @@ export class MyApp {
     public modal: ModalController,
     public alertCtrl: AlertController,
     public file: File,
-    public toastCrtl: ToastController) {
+    public toastCrtl: ToastController,
+    private bluetoothSerial: BluetoothSerial,
+    private ble: BLE) {
+      let result = this.ble.enable();
+      console.log(result)
       this.storage.get('hasSeenTutorial')
       .then((hasSeenTutorial) => {
         if (hasSeenTutorial) {
@@ -111,6 +117,7 @@ export class MyApp {
       }
     ).catch(error =>
     {
+        console.log(error);
         let errorAlert = this.alertCtrl.create({
           title: "Erro: Diretório não encontrado."
         })
@@ -206,6 +213,12 @@ export class MyApp {
       });
     LoadModal.present();
   }
+
+  openBTModal() {
+    const BTModal = this.modal.create('BluetoothPage');
+    BTModal.present();
+  }
+
   platformReady() {
     this.platform.ready().then(() => {
       this.splashScreen.hide();

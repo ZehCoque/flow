@@ -59,7 +59,7 @@
           <ion-label color="dark">Vazão de Referência:</ion-label>
           <ion-input name = "referencia" formControlName="referencia" clearOnEdit="true"
           [(ngModel)]="referencia" 
-          type="text" placeholder="400"></ion-input>
+          type="number" placeholder="400"></ion-input>
         </ion-item>
         <div 
         *ngIf="!configFormReferencia.controls?.referencia.valid  && 
@@ -72,7 +72,7 @@
           <ion-label color="dark">Erro admitido (%):</ion-label>
           <ion-input name="erroAdm" formControlName="erroAdm" clearOnEdit="true"
           [(ngModel)]="erroAdm" 
-          type="text" placeholder="10"></ion-input>
+          type="number" placeholder="10"></ion-input>
         </ion-item>  
         <div 
         *ngIf="!configFormErroAdm.controls?.erroAdm.valid  && 

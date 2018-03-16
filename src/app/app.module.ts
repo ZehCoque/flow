@@ -2,7 +2,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, } from 'ionic-angular';
 import { ChartsModule } from 'ng2-charts';
 import { TimesPipe } from './iterable.pipe';
 import { IonicStorageModule } from '@ionic/storage';
@@ -12,6 +12,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { File } from '@ionic-native/file';
 import { MyApp } from './app.component';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { BLE } from '@ionic-native/ble'
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { GraphPage } from '../pages/graph/graph';
@@ -34,7 +36,10 @@ import { UserDataProvider } from '../providers/user-data/user-data';
     BrowserModule,
     HttpModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{
+      scrollAssist: true,
+      autoFocusAssist: true
+    }),
     ChartsModule,
     IonicStorageModule.forRoot()
   ],
@@ -50,6 +55,8 @@ import { UserDataProvider } from '../providers/user-data/user-data';
   providers: [
     StatusBar,
     SplashScreen,
+    BluetoothSerial,
+    BLE,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserDataProvider,
     File

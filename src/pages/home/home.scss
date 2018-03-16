@@ -4,18 +4,17 @@ page-home {
            font-size: 15px;
        }
 
-   ion-input{
-       text-align: center;
-       background: white;
-       border: 1px solid #ddd;
-       border-radius: 4px;
-   }
+        ion-input{
+            text-align: center;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
 
    .hidden-button{
     height: 100%;
     width: 100%;
     padding: 0px;
-
 }
    .text-input::-moz-placeholder {
     color: #488aff;
@@ -32,10 +31,6 @@ page-home {
     color: #488aff;
     text-align: center;
   }
-
-   ion-grid{
-       padding:0px;
-   }
 
    ion-row{
     padding: 0px;

@@ -18,7 +18,6 @@ export class HomePage {
   titulo: string;
   unidade: string = 'mL/min';
   inputNumber: string = 'input';
-  status: number;
   index: any;
   public homeForm: FormGroup;
 
@@ -28,7 +27,8 @@ export class HomePage {
   ) {
 
     this.homeForm = new FormGroup({
-      bicos: new FormArray([])
+      bicos: new FormArray([]),
+      condicao: new FormArray([])
   });
   }
 
@@ -49,8 +49,6 @@ export class HomePage {
         this.unidade = 'oz/min';
       }
 
-      this.status = this.homeData.referencia;
-
       }); 
 
       this.userData.getInputs().then((value) => {
@@ -59,23 +57,36 @@ export class HomePage {
         for(let i=0;i<this.rowCount;i++){
         if(this.savedInputs == undefined){
         (<FormArray>this.homeForm.controls['bicos'])
-        .push(new FormControl([null,HomeInputValidator.isValid]));
+        .push(new FormControl([null],{ updateOn: 'blur' }));
+        // (<FormArray>this.homeForm.controls['condicao'])
+        // .push(new FormControl([null]));
         }
         else{
           (<FormArray>this.homeForm.controls['bicos'])
-          .push(new FormControl(this.savedInputs[i]));
+          .push(new FormControl([this.savedInputs[i]]));
+          // let cond = null;
+          // if (this.savedInputs[i] != 0){
+          // cond = ((this.savedInputs[i]-this.homeData.referencia)/this.homeData.referencia)*100;
+          // }
+          // (<FormArray>this.homeForm.controls['condicao'])
+          // .push(new FormControl([cond]));
         }
+        // this.homeForm.controls.bicos.valueChanges.subscribe((data) => {
+        //   let cond = ((data.toArray()-this.homeData.referencia)/this.homeData.referencia)*100;
+        //   console.log(cond);
+        //   // this.homeForm.controls['condicao'].setValue(cond);
+        // })
       }
     });
- 
       this.homeForm.controls.bicos.valueChanges.subscribe(data =>{
-      this.userData.setInputs(data);
+        this.userData.setInputs(data);
     });
-    
+
   }
 
     activateInput(index){
       this.inputs.toArray()[index].setFocus();
+
     }
 }
 

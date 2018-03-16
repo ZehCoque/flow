@@ -13,39 +13,25 @@
 </ion-header>
 
 <ion-content padding>
-
-
-  <ion-grid>
           <ion-row no-padding text-center align-items-center>
             <ion-col class="main-col" align-self-center col-2><strong>Nº</strong></ion-col>
             <ion-col class="main-col" align-self-center col-5><strong>Vazão ({{unidade}})</strong></ion-col>
             <ion-col class="main-col" align-self-center col-5><strong>Condição</strong></ion-col>
           </ion-row>
           <form [formGroup]="homeForm"> 
-            <ion-row formArrayName="bicos" *ngFor="let item of homeForm.controls.bicos.controls; let i = index" >
+            <ion-row *ngFor="let item of homeForm.controls.bicos.controls; let i = index" >
               <button id={{i}} ion-button clear style="color: black" class='hidden-button' 
               (click) = "activateInput(i)">
               <ion-col align-self-center col-2>{{i+1}}</ion-col>
               <ion-col col-1></ion-col>
-              <ion-col text-center align-self-center col-3>
-              <ion-input #inputs formControlName="{{i}}" type="number"></ion-input>
+              <ion-col formArrayName="bicos" text-center align-self-center col-3>
+                <ion-input #inputs formControlName="{{i}}" type="number"></ion-input>
               </ion-col>
               <ion-col col-1></ion-col>
-              <ion-col align-self-center col-5>{{status}}</ion-col>
+              <ion-col formArrayName="condicao" align-self-center col-5>
+                <!-- {{homeForm.controls.condicao.value[i]}} -->
+              </ion-col>
             </button>
             </ion-row>
-            
           </form>
-          <!-- <form>
-          <ion-row *ngFor="let y of rowCount|times" text-center align-items-center>
-              <ion-col align-self-center col-2>{{y}}</ion-col>
-              <ion-col text-center align-self-center col-4><ion-input id='input{{y}}' 
-                ></ion-input></ion-col>
-              <ion-col align-self-center col-4>{{status}}</ion-col>
-              <ion-col align-self-center col-2><button
-                id= 'button{{y}}' ion-button small icon-only>
-                <ion-icon name="brush"></ion-icon></button></ion-col>
-          </ion-row>
-        </form> -->
-  </ion-grid>
 </ion-content>
