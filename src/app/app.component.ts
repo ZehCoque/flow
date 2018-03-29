@@ -4,7 +4,6 @@ import { Events, MenuController, Nav, Platform,
   ModalController, AlertController, ToastController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
-import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { BLE } from '@ionic-native/ble'
 // Pages
 import { TabsPage } from '../pages/tabs/tabs';
@@ -32,6 +31,7 @@ export class MyApp {
   result;
   configFolder;
   dataFolder;
+  peripheral:any = {};
 
   @ViewChild(Nav) nav: Nav;
 
@@ -47,7 +47,6 @@ export class MyApp {
     public alertCtrl: AlertController,
     public file: File,
     public toastCrtl: ToastController,
-    private bluetoothSerial: BluetoothSerial,
     private ble: BLE) {
       let result = this.ble.enable();
       console.log(result)
@@ -216,6 +215,13 @@ export class MyApp {
 
   openBTModal() {
     const BTModal = this.modal.create('BluetoothPage');
+    // BTModal.onDidDismiss((peripheral) => {
+    //   if (device != null){
+    //     this.device= device;
+    //     this.userData.setBLE_saved_device(device);
+    //     this.nav.setRoot(TabsPage);
+    //   }
+    //   });
     BTModal.present();
   }
 

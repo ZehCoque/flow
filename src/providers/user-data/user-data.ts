@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 
 const Data = 'Data';
 const Inputs = 'Inputs';
+const BLE_device = 'BLE_device';
 
 @Injectable()
 export class UserDataProvider {
@@ -38,6 +39,16 @@ export class UserDataProvider {
 
   getInputs() {
     return this.storage.get(Inputs);
+  }
+
+  setBLE_saved_device(device){
+    this.storage.set(BLE_device,device).then((value) =>{
+      return value;
+    })
+  }
+
+  getBLE_saved_device() {
+    return this.storage.get(BLE_device);
   }
 
 }

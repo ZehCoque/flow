@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams , ViewController } from 'ionic-angu
 import { TabsPage } from '../../pages/tabs/tabs';
 import { Storage } from '@ionic/storage';
 
-@IonicPage()
 @Component({
   selector: 'page-tutorial',
   templateUrl: 'tutorial.html',
