@@ -13,7 +13,9 @@ import { File } from '@ionic-native/file';
 import { MyApp } from './app.component';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { BLE } from '@ionic-native/ble'
+import { Diagnostic } from '@ionic-native/diagnostic';
 
+//Pages
 import { TabsPage } from '../pages/tabs/tabs';
 import { GraphPage } from '../pages/graph/graph';
 import { MorePage } from '../pages/more/more';
@@ -57,7 +59,8 @@ import { UserDataProvider } from '../providers/user-data/user-data';
     BLE,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserDataProvider,
-    File
+    File,
+    Diagnostic
   ]
 })
 export class AppModule {}

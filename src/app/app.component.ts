@@ -5,6 +5,8 @@ import { Events, MenuController, Nav, Platform,
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { BLE } from '@ionic-native/ble'
+import { Diagnostic } from '@ionic-native/diagnostic';
+
 // Pages
 import { TabsPage } from '../pages/tabs/tabs';
 import { TutorialPage } from '../pages/tutorial/tutorial';
@@ -28,7 +30,6 @@ export class MyApp {
   Data: DataList;
   filename: string;
   dirPath;
-  fileResult;
   configFolder;
   dataFolder;
   peripheral:any = {};
@@ -47,27 +48,14 @@ export class MyApp {
     public alertCtrl: AlertController,
     public file: File,
     public toastCrtl: ToastController,
-    private ble: BLE) {
-      this.storage.get('hasSeenTutorial')
-      .then((hasSeenTutorial) => {
-        if (hasSeenTutorial) {
-          this.rootPage = TabsPage;
-        } else {
-          this.rootPage = TutorialPage;
-        }
-        this.platformReady()
-      });
+    private ble: BLE,
+    private diagnostic: Diagnostic) {
 
       this.file.checkDir(this.file.dataDirectory, 'medidordefluxo').catch(error => {
-      if (this.fileResult == null){
-        this.fileResult = this.file.createDir(this.file.externalRootDirectory,'medidordefluxo',true);
-        if (this.configFolder == null){
-          this.configFolder = this.file.createDir((this.file.externalRootDirectory + 'medidordefluxo'),'config',true);
-        }
-        if (this.dataFolder == null){
-          this.dataFolder = this.file.createDir((this.file.externalRootDirectory + 'medidordefluxo'),'data',true);
-        }
-      }});
+        this.file.createDir(this.file.externalRootDirectory,'medidordefluxo',true);
+        this.configFolder = this.file.createDir((this.file.externalRootDirectory + 'medidordefluxo'),'config',true);
+        this.dataFolder = this.file.createDir((this.file.externalRootDirectory + 'medidordefluxo'),'data',true);
+      });
 
       statusBar.styleDefault();
       splashScreen.hide();
@@ -82,6 +70,16 @@ export class MyApp {
         this.Data.titulo = "Ensaio1";
         this.Data.unidade = this.unidade;
         this.userData.setData(this.Data);
+      });
+
+      this.storage.get('hasSeenTutorial')
+      .then((hasSeenTutorial) => {
+        if (hasSeenTutorial) {
+          this.rootPage = TabsPage;
+        } else {
+          this.rootPage = TutorialPage;
+        }
+        this.platformReady()
       });
   }
   
@@ -116,7 +114,6 @@ export class MyApp {
       }
     ).catch(error =>
     {
-        console.log(error);
         let errorAlert = this.alertCtrl.create({
           title: "Erro: Diretório não encontrado."
         })
@@ -218,9 +215,44 @@ export class MyApp {
     BTModal.present();
   }
 
+  errorAlert(message,error){
+    let error_alert = this.alertCtrl.create({
+      title: message,
+      subTitle: error
+    })
+  }
+
   platformReady() {
     this.platform.ready().then(() => {
       this.splashScreen.hide();
+      if (this.Data.coleta == "bt"){
+        //Location Settings
+        this.diagnostic.isLocationAvailable().then(() => {
+          this.diagnostic.getLocationMode().then(value => {
+            if (value == "location_off") {
+              this.diagnostic.switchToLocationSettings();
+            }
+          }).catch(error => {
+            this.errorAlert("Erro Inesperado",error);
+          });
+        }
+      ).catch(error => {
+        this.errorAlert("Erro Inesperado",error)
+      });
+      
+        //Bluetooth Settings
+      this.diagnostic.getBluetoothState().then(state => {
+        if (state == this.diagnostic.bluetoothState.POWERED_OFF)
+        {
+          if (this.platform.is('android')){
+          this.ble.enable();
+          }
+          if (this.platform.is('ios')){
+            this.diagnostic.switchToBluetoothSettings();          
+          }
+        }
+      })
+      }
     });
   }
 }
