@@ -23,14 +23,29 @@
               <button id={{i}} ion-button clear style="color: black" class='hidden-button' 
               (click) = "activateInput(i)">
               <ion-col align-self-center col-2>{{i+1}}</ion-col>
-              <ion-col col-1></ion-col>
+              <ion-col align-self-center col-1></ion-col>
               <ion-col formArrayName="bicos" text-center align-self-center col-3>
                 <ion-input #inputs formControlName="{{i}}" type="number"></ion-input>
               </ion-col>
-              <ion-col col-1></ion-col>
-              <ion-col formArrayName="condicao" align-self-center col-5>
-                <!-- {{homeForm.controls.condicao.value[i]}} -->
-              </ion-col>
+              <ion-col align-self-center col-1></ion-col>
+              <ion-col col-5>
+              <div *ngIf="!homeForm.controls.bicos.value[i]">
+              </div>
+              <div *ngIf="homeForm.controls.bicos.value[i] > 0 &&
+              homeForm.controls.bicos.value[i] != null &&
+              homeForm.controls.bicos.controls[i].touched &&              
+              (((homeForm.controls.bicos.value[i]-homeData.referencia)/homeData.referencia)*100 >= -homeData.erroAdm &&
+              ((homeForm.controls.bicos.value[i]-homeData.referencia)/homeData.referencia)*100 <= homeData.erroAdm)">
+                {{((homeForm.controls.bicos.value[i]-homeData.referencia)/homeData.referencia)*100}}%
+            </div>
+            <div *ngIf="homeForm.controls.bicos.value[i] > 0 &&
+              homeForm.controls.bicos.value[i] != null &&
+              homeForm.controls.bicos.controls[i].touched &&
+              (((homeForm.controls.bicos.value[i]-homeData.referencia)/homeData.referencia)*100 < -homeData.erroAdm ||
+              ((homeForm.controls.bicos.value[i]-homeData.referencia)/homeData.referencia)*100 > homeData.erroAdm)">
+                <p class="ref_alert">{{((homeForm.controls.bicos.value[i]-homeData.referencia)/homeData.referencia)*100}}%</p>
+            </div>
+            </ion-col>
             </button>
             </ion-row>
           </form>

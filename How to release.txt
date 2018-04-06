@@ -1,0 +1,3 @@
+ionic cordova build --release android
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.jks app-release-unsigned.apk my-alias
+~/AppData/Local/Android/sdk/build-tools/27.0.3/zipalign -v 4 app-release-unsigned.apk Flow.apk

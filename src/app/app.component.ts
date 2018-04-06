@@ -28,7 +28,7 @@ export class MyApp {
   Data: DataList;
   filename: string;
   dirPath;
-  result;
+  fileResult;
   configFolder;
   dataFolder;
   peripheral:any = {};
@@ -48,8 +48,6 @@ export class MyApp {
     public file: File,
     public toastCrtl: ToastController,
     private ble: BLE) {
-      let result = this.ble.enable();
-      console.log(result)
       this.storage.get('hasSeenTutorial')
       .then((hasSeenTutorial) => {
         if (hasSeenTutorial) {
@@ -60,15 +58,16 @@ export class MyApp {
         this.platformReady()
       });
 
-      if (this.result == null){
-        this.result = this.file.createDir(this.file.externalRootDirectory,'medidordefluxo',true);
+      this.file.checkDir(this.file.dataDirectory, 'medidordefluxo').catch(error => {
+      if (this.fileResult == null){
+        this.fileResult = this.file.createDir(this.file.externalRootDirectory,'medidordefluxo',true);
         if (this.configFolder == null){
           this.configFolder = this.file.createDir((this.file.externalRootDirectory + 'medidordefluxo'),'config',true);
         }
         if (this.dataFolder == null){
           this.dataFolder = this.file.createDir((this.file.externalRootDirectory + 'medidordefluxo'),'data',true);
         }
-      }
+      }});
 
       statusBar.styleDefault();
       splashScreen.hide();
@@ -82,6 +81,7 @@ export class MyApp {
         this.Data.referencia = this.referenciaDefault;
         this.Data.titulo = "Ensaio1";
         this.Data.unidade = this.unidade;
+        this.userData.setData(this.Data);
       });
   }
   
@@ -215,13 +215,6 @@ export class MyApp {
 
   openBTModal() {
     const BTModal = this.modal.create('BluetoothPage');
-    // BTModal.onDidDismiss((peripheral) => {
-    //   if (device != null){
-    //     this.device= device;
-    //     this.userData.setBLE_saved_device(device);
-    //     this.nav.setRoot(TabsPage);
-    //   }
-    //   });
     BTModal.present();
   }
 

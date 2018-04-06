@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { IonicApp, IonicModule, IonicErrorHandler, } from 'ionic-angular';
 import { ChartsModule } from 'ng2-charts';
-import { TimesPipe } from './iterable.pipe';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
@@ -30,7 +29,6 @@ import { UserDataProvider } from '../providers/user-data/user-data';
     MorePage,
     TabsPage,
     TutorialPage,
-    TimesPipe
   ],
   imports: [
     BrowserModule,

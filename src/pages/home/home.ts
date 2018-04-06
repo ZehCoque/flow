@@ -39,7 +39,6 @@ export class HomePage {
 
     this.homeForm = new FormGroup({
       bicos: new FormArray([]),
-      condicao: new FormArray([])
   });
 
   }
@@ -65,29 +64,19 @@ export class HomePage {
 
       this.userData.getInputs().then((value) => {
         this.savedInputs = value;
-        console.log(this.savedInputs);
         for(let i=0;i<this.rowCount;i++){
         if(this.savedInputs == undefined){
         (<FormArray>this.homeForm.controls['bicos'])
         .push(new FormControl([null],{ updateOn: 'blur' }));
-        // (<FormArray>this.homeForm.controls['condicao'])
-        // .push(new FormControl([null]));
         }
         else{
           (<FormArray>this.homeForm.controls['bicos'])
-          .push(new FormControl([this.savedInputs[i]]));
-          // let cond = null;
-          // if (this.savedInputs[i] != 0){
-          // cond = ((this.savedInputs[i]-this.homeData.referencia)/this.homeData.referencia)*100;
-          // }
-          // (<FormArray>this.homeForm.controls['condicao'])
-          // .push(new FormControl([cond]));
+          .push(new FormControl([this.savedInputs[i]],{ updateOn: 'blur' }));
+          if (this.homeForm.controls['bicos'].value[i] != 0 || 
+          this.homeForm.controls['bicos'].value[i] != null)  {
+            (<FormArray>this.homeForm.controls['bicos']).controls[i].markAsTouched();
+          }
         }
-        // this.homeForm.controls.bicos.valueChanges.subscribe((data) => {
-        //   let cond = ((data.toArray()-this.homeData.referencia)/this.homeData.referencia)*100;
-        //   console.log(cond);
-        //   // this.homeForm.controls['condicao'].setValue(cond);
-        // })
       }
     });
       this.homeForm.controls.bicos.valueChanges.subscribe(data =>{
@@ -106,7 +95,6 @@ export class HomePage {
 
     activateInput(index){
       this.inputs.toArray()[index].setFocus();
-
     }
 
     // CONFIGURAÇÕES BLE

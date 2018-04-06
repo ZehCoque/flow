@@ -69,18 +69,17 @@ export class BluetoothPage {
     console.log(JSON.stringify(device) + ' selected');
     this.setStatus('Conectando à ' + device.name || device.id);
 
-    this.userData.setBLE_saved_device(device);
-
     this.ble.connect(device.id).subscribe(
-      peripheral => this.onConnected(peripheral),
+      peripheral => this.onConnected(peripheral,device),
       peripheral => this.onDeviceDisconnected(peripheral)
     );
   }
 
-  onConnected(peripheral) {
+  onConnected(peripheral,device) {
     this.ngZone.run(() => {
       this.setStatus('');
       this.peripheral = peripheral;
+      this.userData.setBLE_saved_device(device);
     });
   }
 
