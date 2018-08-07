@@ -1,11 +1,8 @@
 import { Component, ViewChildren, QueryList, NgZone} from '@angular/core';
-import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormArray } from '@angular/forms';
 import { NavController, AlertController } from 'ionic-angular';
 import { UserDataProvider, DataList, HomeInputData } from '../../providers/user-data/user-data';
 import { BLE } from '@ionic-native/ble';
-
-//Validators
-import { HomeInputValidator } from  '../../validators/homeInput';
 
 const SERVICE = 'ffe0';
 const CHARACTERISTIC = 'ffe1';
@@ -26,7 +23,7 @@ export class HomePage {
   inputNumber: string = 'input';
   index: any;
   device: any;
-  peripheral: any ={};
+  peripheral: any = {};
   public homeForm: FormGroup;
 
   constructor(
@@ -79,6 +76,7 @@ export class HomePage {
         }
       }
     });
+    
       this.homeForm.controls.bicos.valueChanges.subscribe(data =>{
         this.userData.setInputs(data);
     });
@@ -89,7 +87,7 @@ export class HomePage {
     // This is not a promise, the device can call disconnect after it connects, so it's an observable
     this.ble.connect(this.device.id).subscribe(
       peripheral => this.onConnected(peripheral),
-      peripheral => this.showAlert('Disconnected', 'The peripheral unexpectedly disconnected')
+      peripheral => this.showAlert('Dispositivo desconectado', 'Permaneça a no máximo 5 metros do dispositivo e verifique as configurações de Localização e Bluetooth.')
     );
   }
 
@@ -111,7 +109,7 @@ export class HomePage {
       // Read the current value
       this.ble.read(this.peripheral.id, SERVICE, CHARACTERISTIC).then(
         data => this.onValueChange(data),
-        () => this.showAlert('Erro Inespera', 'Impossível receber valor do dispositivo Bluetooth')
+        () => this.showAlert('Erro Inespera', 'Impossível receber valores do dispositivo Bluetooth')
       )
       
     }

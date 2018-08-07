@@ -6,11 +6,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { BLE } from '@ionic-native/ble'
 import { Diagnostic } from '@ionic-native/diagnostic';
+import { File } from '@ionic-native/file';
 
 // Pages
 import { TabsPage } from '../pages/tabs/tabs';
 import { TutorialPage } from '../pages/tutorial/tutorial';
-import { File } from '@ionic-native/file';
 
 //Providers
 import { UserDataProvider, DataList } from '../providers/user-data/user-data';
@@ -51,10 +51,10 @@ export class MyApp {
     private ble: BLE,
     private diagnostic: Diagnostic) {
 
-      this.file.checkDir(this.file.dataDirectory, 'medidordefluxo').catch(error => {
-        this.file.createDir(this.file.externalRootDirectory,'medidordefluxo',true);
-        this.configFolder = this.file.createDir((this.file.externalRootDirectory + 'medidordefluxo'),'config',true);
-        this.dataFolder = this.file.createDir((this.file.externalRootDirectory + 'medidordefluxo'),'data',true);
+      this.file.checkDir(this.file.dataDirectory, 'FLUX').catch(_error => {
+        this.file.createDir(this.file.externalRootDirectory,'FLUX',true);
+        this.configFolder = this.file.createDir((this.file.externalRootDirectory + 'FLUX'),'config',true);
+        this.dataFolder = this.file.createDir((this.file.externalRootDirectory + 'FLUX'),'data',true);
       });
 
       statusBar.styleDefault();
@@ -62,7 +62,7 @@ export class MyApp {
 
       this.userData.getData().then((value) => {
       this.Data = value;
-      }).catch(error => {
+      }).catch(_error => {
         this.Data.coleta = this.coleta;
         this.Data.erroAdm = this.erroAdmDefault;
         this.Data.numeroBicos = this.numeroBicosDefault;
@@ -112,7 +112,7 @@ export class MyApp {
         })
         savetoast.present();
       }
-    ).catch(error =>
+    ).catch(_error =>
     {
         let errorAlert = this.alertCtrl.create({
           title: "Erro: Diretório não encontrado."
@@ -129,7 +129,7 @@ export class MyApp {
         this.dirPath = data.toURL();
         this.file.writeFile(this.dirPath, (this.Data.titulo + '.config' + '.csv'), String(configData), {replace:true});
       }
-    ).catch(error =>
+    ).catch(_error =>
     {
         let errorAlert = this.alertCtrl.create({
           title: "Erro: Diretório não encontrado."
@@ -141,10 +141,10 @@ export class MyApp {
 
   openNewModal(){
     let alert = this.alertCtrl.create({
-      title: 'Deseja salvar antes de continuar?',
+      title: 'Salvar antes de continuar?',
       buttons: [
         {
-          text: 'Continuar',
+          text: 'Não salvar',
           handler: () => {
             const newModal = this.modal.create('NewPage');
             newModal.onDidDismiss((newData) => {
@@ -220,6 +220,7 @@ export class MyApp {
       title: message,
       subTitle: error
     })
+    error_alert.present();
   }
 
   platformReady() {
